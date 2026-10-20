@@ -385,6 +385,7 @@ Si el caso de uso termina sin éxito, por falta de resultados, por un fallo o po
 - NFR-004, NFR-005 y NFR-010, según el apartado 5.
 
 **Preguntas abiertas:** Ninguna para el alcance descrito.
+
 ## 7 Continuidad entre iteraciones
 
 E1 estableció la primera vista del modelo. Su estado revisado se conserva en el commit público `984a17f`, con los casos UC-01 a UC-07, UC-09 a UC-11 y UC-31 a UC-35.
