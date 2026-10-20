@@ -223,25 +223,71 @@ Los apartados 6.1 y 6.2 corresponden a las descripciones detalladas de UC-05 y U
 
 ### 6.1 Descripción detallada UC-05 — Actualizar perfil
 
-**Identificador y nombre del caso de uso:** [Indica el caso.]
+**Identificador y nombre del caso de uso:** UC-05 · Actualizar perfil
 
-**Objetivo:** [Explica qué resultado pretende obtener el participante.]
+**Objetivo:** Modificar los datos personales, de contacto y las preferencias dietéticas de la cuenta propia y conservar los cambios.
 
-**Participantes:** [Indica el actor principal y los actores de apoyo, si los hay.]
+**Participantes:**
+- *Principal:* Usuario registrado.
+- *De apoyo:* Ninguno. El Servicio de correo electrónico no interviene en este caso de uso.
 
-**Precondiciones:** [Indica qué se da por cumplido al comenzar. Las comprobaciones que realiza el sistema pertenecen al flujo.]
+**Precondiciones:**
+- El Usuario registrado tiene una cuenta activa.
+- El Usuario registrado ha iniciado sesión.
 
-**Inicio:** [Indica qué acción o suceso inicia el caso.]
+La validez de los datos introducidos se comprueba durante el caso de uso, no antes.
 
-**Escenario principal de éxito:** [Describe la secuencia entre los participantes y el sistema.]
+**Inicio:** El Usuario registrado solicita editar su perfil.
 
-**Extensiones (flujos alternativos):** [Vincula cada variación a un paso. Indica cómo continúa o termina.]
+**Escenario principal de éxito:**
 
-**Postcondiciones:** [Indica qué queda establecido con éxito y qué se conserva o cambia si el caso termina sin éxito o se cancela. Una consulta no requiere modificar datos para alcanzar su objetivo.]
+1. El Usuario registrado solicita editar su perfil.
+2. El sistema muestra los valores guardados. Alias y correo electrónico aparecen solo de consulta. Nombre completo, teléfono, dirección postal y preferencias dietéticas (vegana, sin gluten, baja en carbohidratos) se pueden editar.
+3. El Usuario registrado modifica uno o varios datos editables. Puede seleccionar ninguna, una o varias preferencias.
+4. El Usuario registrado solicita guardar los cambios.
+5. El sistema comprueba que el nombre completo y el teléfono no están vacíos (un valor formado solo por espacios se considera vacío) y que el teléfono cumple el formato del registro, incluidos los prefijos internacionales.
+6. El sistema guarda conjuntamente los cambios.
+7. El sistema confirma que el perfil se ha actualizado.
 
-**Reglas y NFR pertinentes:** [Remite a los requisitos y actas que condicionan el comportamiento.]
+**Extensiones (flujos alternativos):**
 
-**Preguntas abiertas:** [Registra solo las cuestiones necesarias que las fuentes no resuelvan. Si no hay preguntas para el alcance descrito, indícalo.]
+\*.a. En cualquier momento antes de solicitar el guardado, el Usuario registrado cancela la edición:
+   1. El sistema descarta los cambios de esa edición.
+   2. El perfil conserva los valores anteriores.
+   3. El caso de uso finaliza.
+
+5.a. El nombre completo o el teléfono están vacíos, o el teléfono no tiene un formato válido:
+   1. El sistema identifica cada campo afectado y explica qué debe corregirse.
+   2. El sistema conserva los valores introducidos y no guarda ningún cambio.
+   3. El flujo de eventos vuelve al paso 3 para corregir los datos.
+
+6.a. El sistema no puede guardar los cambios:
+   1. El sistema informa del problema y no confirma la actualización.
+   2. El sistema conserva los valores introducidos. Los datos guardados permanecen sin cambios.
+   3. El flujo de eventos vuelve al paso 4, para que el Usuario registrado pueda reintentar el guardado.
+
+   6.a.3.a. El Usuario registrado decide no reintentar y cancela:
+      1. El flujo de eventos continúa en la extensión \*.a.
+
+**Postcondiciones:**
+
+Tras completar el caso de uso con éxito:
+- El perfil conserva los nuevos valores del nombre completo, el teléfono, la dirección postal y las preferencias dietéticas.
+- Alias y correo electrónico permanecen sin cambios.
+- El Usuario registrado recibe la confirmación de que el perfil se ha actualizado.
+
+Si el caso de uso termina sin éxito o se cancela:
+- Los datos guardados del perfil permanecen sin cambios.
+
+**Reglas y NFR pertinentes:**
+- UR-03 y FR-019: actualización de datos personales y preferencias. Alias y correo electrónico no son modificables.
+- [Acta de UC-05](../captura/acta-acuerdos-uc-05-actualizar-perfil.md), v1.1: campos editables, validación, guardado, cancelación y fallo de guardado.
+- Nombre completo y teléfono obligatorios. Dirección postal y preferencias opcionales ([acta de requisitos generales](../captura/acta-captura-requisitos-generales.md), apartado 1.1).
+- Teléfono con las reglas de formato del registro y prefijos internacionales ([acta de UR-01](../captura/acta-captura-requisitos-ur-01.md), apartado 2.1).
+- Las preferencias dietéticas no son datos de salud ni sustituyen el registro de alergias. Este caso de uso no modifica datos de salud.
+- NFR-010, según el apartado 5.
+
+**Preguntas abiertas:** Ninguna para el alcance descrito.
 
 ### 6.2 Descripción detallada UC-21 — Buscar recetas
 
