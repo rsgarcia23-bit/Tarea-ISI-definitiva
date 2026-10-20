@@ -320,15 +320,14 @@ La validez de los criterios y la existencia de resultados se comprueban durante 
 
 **Extensiones (flujos alternativos):**
 
-3.a. El Usuario registrado busca por una palabra o frase:
+3.a. El Usuario registrado busca por una palabra o frase, sola o junto con ingredientes:
    1. El Usuario registrado introduce la palabra o frase.
-   2. El flujo de eventos continúa en el paso 4. El sistema comprueba si el texto aparece en el título o en la descripción breve. Una frase debe aparecer seguida y en el mismo orden. No se distinguen mayúsculas ni tildes.
-   3. Si también hay ingredientes seleccionados, la receta debe cumplir todos los criterios.
+         2. El flujo de eventos continúa en el paso 4 si el Usuario registrado decide ejecutar la búsqueda. Si no, vuelve al paso 3 para modificar los criterios.
 
-3.b. El Usuario registrado excluye ingredientes:
+3.b. El Usuario registrado excluye ingredientes, solos o junto con otros criterios:
    1. El Usuario registrado selecciona los ingredientes que desea excluir.
-   2. El flujo de eventos continúa en el paso 4. Ninguna receta de los resultados contiene un ingrediente excluido. Si se combinan con otros criterios, la receta debe cumplir todos.
-
+   2. El flujo de eventos continúa en el paso 4. En el paso 6, ninguna receta de los resultados contiene un ingrediente excluido.
+      
 3.c. El Usuario registrado añade o retira selecciones antes de buscar:
    1. El flujo de eventos vuelve al paso 3.
 
@@ -374,8 +373,8 @@ Tras completar el caso de uso con éxito:
 
 Si el caso de uso termina sin éxito, por falta de resultados, por un fallo o porque el usuario lo termina:
 - No se modifica ninguna receta ni ningún otro dato.
-- Se conservan los criterios de la última búsqueda, salvo que no se haya llegado a ejecutar ninguna.
-
+- Se conservan los criterios indicados o, si la búsqueda se ha ejecutado, los de la última búsqueda.
+  
 **Reglas y NFR pertinentes:**
 - UR-08; FR-085 a FR-096, FR-099, FR-103 y FR-119, según el apartado 5. El acta añade FR-102 (ayuda sin resultados) y cita FR-056, FR-066 y FR-192 (datos de la receta, insignia de validación y alias).
 - [Acta de UC-21](../captura/acta-acuerdos-uc-21-buscar-recetas.md), v1.1, y [plan de E2](../planificacion/plan-iteracion-e2.md), apartado 4.4.
