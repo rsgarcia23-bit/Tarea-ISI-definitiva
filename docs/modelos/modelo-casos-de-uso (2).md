@@ -291,26 +291,100 @@ Si el caso de uso termina sin éxito o se cancela:
 
 ### 6.2 Descripción detallada UC-21 — Buscar recetas
 
-**Identificador y nombre del caso de uso:** [Indica el caso.]
+**Identificador y nombre del caso de uso:** UC-21 · Buscar recetas
 
-**Objetivo:** [Explica qué resultado pretende obtener el participante.]
+**Objetivo:** Localizar una receta que cumpla los criterios indicados y consultar su detalle.
 
-**Participantes:** [Indica el actor principal y los actores de apoyo, si los hay.]
+**Participantes:**
+- *Principal:* Usuario registrado.
+- *De apoyo:* Ninguno.
 
-**Precondiciones:** [Indica qué se da por cumplido al comenzar. Las comprobaciones que realiza el sistema pertenecen al flujo.]
+**Precondiciones:**
+- El Usuario registrado ha iniciado sesión.
 
-**Inicio:** [Indica qué acción o suceso inicia el caso.]
+La validez de los criterios y la existencia de resultados se comprueban durante el caso de uso, no antes.
 
-**Escenario principal de éxito:** [Describe la secuencia entre los participantes y el sistema.]
+**Inicio:** El Usuario registrado solicita buscar recetas.
 
-**Extensiones (flujos alternativos):** [Vincula cada variación a un paso. Indica cómo continúa o termina.]
+**Escenario principal de éxito:**
 
-**Postcondiciones:** [Indica qué queda establecido con éxito y qué se conserva o cambia si el caso termina sin éxito o se cancela. Una consulta no requiere modificar datos para alcanzar su objetivo.]
+1. El Usuario registrado solicita buscar recetas.
+2. El sistema muestra los criterios de búsqueda y los nombres de ingredientes disponibles.
+3. El Usuario registrado selecciona uno o varios ingredientes que desea encontrar.
+4. El Usuario registrado solicita la búsqueda.
+5. El sistema comprueba que se ha indicado al menos un criterio y que ningún ingrediente está seleccionado a la vez para incluirlo y para excluirlo.
+6. El sistema busca entre las recetas publicadas y validadas las que contienen todos los ingredientes seleccionados.
+7. El sistema muestra los resultados ordenados por fecha de publicación, con las más recientes primero. Cada vista previa incluye título, imagen, calificación promedio y descripción breve. Si falta la imagen, indica «Sin imagen». Si no hay valoraciones, indica «Sin valoraciones».
+8. El Usuario registrado selecciona un resultado.
+9. El sistema muestra el detalle de la receta: título, imagen si existe, ingredientes, instrucciones de preparación, tiempo de cocción, número de porciones, alias de quien la publicó e insignia de validación.
 
-**Reglas y NFR pertinentes:** [Remite a los requisitos y actas que condicionan el comportamiento.]
+**Extensiones (flujos alternativos):**
 
-**Preguntas abiertas:** [Registra solo las cuestiones necesarias que las fuentes no resuelvan. Si no hay preguntas para el alcance descrito, indícalo.]
+3.a. El Usuario registrado busca por una palabra o frase:
+   1. El Usuario registrado introduce la palabra o frase.
+   2. El flujo de eventos continúa en el paso 4. El sistema comprueba si el texto aparece en el título o en la descripción breve. Una frase debe aparecer seguida y en el mismo orden. No se distinguen mayúsculas ni tildes.
+   3. Si también hay ingredientes seleccionados, la receta debe cumplir todos los criterios.
 
+3.b. El Usuario registrado excluye ingredientes:
+   1. El Usuario registrado selecciona los ingredientes que desea excluir.
+   2. El flujo de eventos continúa en el paso 4. Ninguna receta de los resultados contiene un ingrediente excluido. Si se combinan con otros criterios, la receta debe cumplir todos.
+
+3.c. El Usuario registrado añade o retira selecciones antes de buscar:
+   1. El flujo de eventos vuelve al paso 3.
+
+5.a. No se ha indicado ningún criterio:
+   1. El sistema solicita al menos un criterio y no ejecuta la búsqueda.
+   2. El sistema conserva la búsqueda.
+   3. El flujo de eventos vuelve al paso 3.
+
+5.b. Un mismo ingrediente está seleccionado para incluirlo y para excluirlo:
+   1. El sistema señala el conflicto y no ejecuta la búsqueda.
+   2. El flujo de eventos vuelve al paso 3 para corregir la selección.
+
+6.a. Ninguna receta cumple los criterios:
+   1. El sistema indica que no hay resultados para esa búsqueda y conserva los criterios.
+   2. El sistema muestra sugerencias, separadas de los resultados. Propone una corrección ortográfica si el texto la admite. Si no, propone alternativas relacionadas con los criterios cuando dispone de ellas. Si no dispone de sugerencias, lo indica. Las sugerencias conservan los ingredientes excluidos.
+   3. El flujo de eventos vuelve al paso 3 para que el Usuario registrado modifique los criterios.
+
+   6.a.3.a. El Usuario registrado acepta una sugerencia:
+      1. El sistema muestra los criterios propuestos sin ejecutar otra búsqueda.
+      2. El flujo de eventos continúa en el paso 4 si el Usuario registrado decide ejecutarla.
+
+   6.a.3.b. El Usuario registrado termina la consulta:
+      1. El caso de uso finaliza.
+
+6.b. El sistema no puede completar la búsqueda:
+   1. El sistema informa del problema. No lo presenta como una búsqueda sin resultados.
+   2. El sistema conserva los criterios de la última búsqueda.
+   3. El flujo de eventos vuelve al paso 4 si el Usuario registrado reintenta la consulta. Si decide terminarla, el caso de uso finaliza.
+
+9.a. El sistema no puede cargar el detalle de la receta:
+   1. El sistema informa del problema y conserva los criterios de la última búsqueda.
+   2. El flujo de eventos vuelve al paso 8 si el Usuario registrado reintenta la consulta. Si decide terminarla, el caso de uso finaliza.
+
+9.b. El Usuario registrado vuelve a los resultados:
+   1. El sistema muestra de nuevo los resultados, con los criterios y el orden de la última búsqueda.
+   2. El flujo de eventos continúa en el paso 8. Para obtener otros resultados, el Usuario registrado modifica los criterios y el flujo vuelve al paso 3.
+
+**Postcondiciones:**
+
+Tras completar el caso de uso con éxito:
+- El Usuario registrado ha consultado el detalle de una receta publicada y validada que cumple los criterios.
+- Se conservan los criterios y el orden de la última búsqueda para volver a los resultados.
+
+Si el caso de uso termina sin éxito, por falta de resultados, por un fallo o porque el usuario lo termina:
+- No se modifica ninguna receta ni ningún otro dato.
+- Se conservan los criterios de la última búsqueda, salvo que no se haya llegado a ejecutar ninguna.
+
+**Reglas y NFR pertinentes:**
+- UR-08; FR-085 a FR-096, FR-099, FR-103 y FR-119, según el apartado 5. El acta añade FR-102 (ayuda sin resultados) y cita FR-056, FR-066 y FR-192 (datos de la receta, insignia de validación y alias).
+- [Acta de UC-21](../captura/acta-acuerdos-uc-21-buscar-recetas.md), v1.1, y [plan de E2](../planificacion/plan-iteracion-e2.md), apartado 4.4.
+- Se consideran solo las recetas publicadas y validadas. Las pendientes de validación no aparecen.
+- La descripción es parcial. Cubre la búsqueda por ingredientes, por palabra o frase y la exclusión de ingredientes. Los demás filtros, las recomendaciones, el historial, los favoritos y las acciones sobre la receta quedan pendientes y se conservan en el modelo. No se aplica automáticamente un filtro de alergias del perfil.
+- La calificación promedio de la vista previa (FR-089) depende de las valoraciones de UR-11, fuera de E2.
+- NFR-004, NFR-005 y NFR-010, según el apartado 5.
+
+**Preguntas abiertas:** Ninguna para el alcance descrito.
 ## 7 Continuidad entre iteraciones
 
 E1 estableció la primera vista del modelo. Su estado revisado se conserva en el commit público `984a17f`, con los casos UC-01 a UC-07, UC-09 a UC-11 y UC-31 a UC-35.
