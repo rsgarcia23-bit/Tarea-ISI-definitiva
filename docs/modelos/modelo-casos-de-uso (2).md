@@ -2,7 +2,7 @@
 
 | Versión | Fecha | Estado |
 | --- | --- | --- |
-| 2.4 | 19/10/2026 | Revisado |
+| 2.5 | 20/10/2026 | Revisado |
 
 **Iteración de referencia:** E2. Este documento recoge el modelo acumulado después de incorporar la vista de salud y recetas.
 
@@ -76,7 +76,7 @@ El registro de auditoría forma parte del comportamiento del sistema. No requier
 
 ## 3 Casos de uso
 
-Los objetivos de esta tabla son resúmenes. Las descripciones detalladas quedan pendientes en el apartado 6.
+Los objetivos de esta tabla son resúmenes. Las descripciones detalladas de UC-05 y UC-21 se incorporan en el apartado 6. Las de los demás casos de uso quedan pendientes.
 
 | Identificador | Nombre | Objetivo | Participantes |
 | --- | --- | --- | --- |
@@ -207,7 +207,7 @@ NFR-002, NFR-003, NFR-008, NFR-009 y NFR-014 condicionan los datos, la recuperac
 
 ## 6 Descripciones de los casos de uso
 
-**Estado de la especificación.** Las descripciones detalladas de UC-05 y UC-21 están pendientes de elaboración. Las actas aprobadas definen el comportamiento acordado y delimitan el alcance de estas descripciones.
+**Estado de la especificación.** UC-05 Actualizar perfil y UC-21 Buscar recetas disponen de descripción detallada en los apartados 6.1 y 6.2. Las actas aprobadas definen el comportamiento acordado y delimitan el alcance de estas descripciones. Las descripciones de los demás casos de uso siguen pendientes.
 
 **Alcance de las descripciones.** Las actas aprobadas de UC-05 y UC-21, v1.1, complementan el catálogo y concretan el siguiente alcance:
 
